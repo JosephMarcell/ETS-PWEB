@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ETS PWEB</title>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <div class="row" id="cardContainer">
+    
+    </div>
+
+    <script type="text/javascript">
+        fetch("http://api.currencylayer.com/live?access_key=e92721334ae88f5c4dc0f322b78ef591")
+            .then(response => response.json())
+            .then(data => {
+            
+                const rates = data.rates;
+                const cardContainer = document.getElementById('cardContainer');
+
+                for (const pair in rates) {
+                    if (rates.hasOwnProperty(pair)) {
+                        
+                        const card = document.createElement('div');
+                        card.className = 'col-xl-3 col-md-6 mb-4';
+                        card.innerHTML = `
+                            <div class="card border-left-primary shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                ${pair}
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                Exchange Rate: ${rates[pair]}
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        cardContainer.appendChild(card); // Menambahkan card ke container
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error', error);
+            });
+    </script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <script src="js/sb-admin-2.min.js"></script>
+
+
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+  
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+</body>
+</html>
